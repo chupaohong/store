@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/product-list.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link th:href="@{/css/add-product-style.css}">
+</head>
+<body>
+<div class="container py-5">
+    <div class="row text-center text-white mb-5">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">Product List</h1>
+        </div>
+    </div>
+    <div class="inline pt-3 mb-2">
+        <a th:href="@{/dashboard/product}" class="btn btn-info active" role="button">Show product</a>
+        <a th:href="@{/dashboard/user}" class="btn btn-info" role="button">Show User</a>
+    </div>
+    <form class="inline float-lg-right pr-0 pt-3 mb-2" method="GET" th:action="@{/dashboard/bird}">
+        <div class="searchbar">
+            <input class="search_input" type="text" name="name" placeholder="Search..." />
+            <a th:href="'#'"><i class="fas fa-search search_icon"></i></a>
+        </div>
+    </form>
+    <div class="clearfix"></div>
+    <div class="row" th:each="bird: ${birdLists}">
+        <div class="col-lg-12 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item" th:if="${bird.specialItem.equals(false)}">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2" th:text="${bird.name}"></h5>
+                            <p class="font-italic text-muted mb-0 small" th:text="${bird.description}"></p>
+                            <div class="d-flex align-items-center mt-1">
+                                <h6 class="font-weight-bold my-2 price" th:text="'Price: $' + ${bird.price}"></h6>
+                            </div>
+                            <div class="list-inline small">
+                                <h5>
+                                    <span class="mt-0 font-weight-bold mb-2 special-item"
+                                          th:text="'Special Item: '"></span>
+                                    <i class="bi bi-x-circle-fill mt-0 mb-2 small"></i>
+                                </h5>
+                            </div>
+                            <div class="action-product">
+                                <a th:href="@{'/dashboard/bird/edit/' + ${bird.id}}" class="btn btn-primary"
+                                   style="display: inline-block">Edit</a>
+                                <form th:action="@{'/dashboard/delete/bird/' + ${bird.id}}" method="POST" class="inline">
+                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        <img class="ml-lg-5 order-1 order-lg-2" th:src="@{'/images/bubo1.jpg'}" alt="Bird 1"
+                             width="200"/>
+                    </div> <!-- End -->
+                </li> <!-- End -->
+                <!-- list group item-->
+                <li class="list-group-item" th:if="${bird.specialItem.equals(true)}">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2" th:text="${bird.name}"></h5>
+                            <p class="font-italic text-muted mb-0 small" th:text="${bird.description}"></p>
+                            <div class="d-flex align-items-center mt-1">
+                                <h6 class="font-weight-bold my-2 price"
+                                    th:text="'Original price: $' + ${bird.originalPrice}"></h6>
+                            </div>
+                            <div class="d-flex align-items-center mt-1">
+                                <h6 class="font-weight-bold my-2 price" th:text="'Price: $' + ${bird.price}"></h6>
+                            </div>
+                            <div class="list-inline small">
+                                <h5>
+                                    <span class="mt-0 font-weight-bold mb-2 special-item"
+                                          th:text="'Special Item: '"></span>
+                                    <i class="bi bi-check-circle-fill mt-0 mb-2 small"></i>
+                                </h5>
+                            </div>
+                            <div class="action-product">
+                                <a th:href="@{'/dashboard/bird/edit/' + ${bird.id}}" class="btn btn-primary"
+                                   style="display: inline-block">Edit</a>
+                                <form th:action="@{'/dashboard/delete/bird/' + ${bird.id}}" method="POST"
+                                      class="inline">
+                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        <img class="ml-lg-5 order-1 order-lg-2" th:src="@{'/images/bubo2.jpg'}" alt="Bird 1"
+                             width="200"/>
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

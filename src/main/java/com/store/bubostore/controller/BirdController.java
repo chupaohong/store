@@ -1,0 +1,77 @@
+package com.store.bubostore.controller;
+
+import com.store.bubostore.entity.Bird;
+import com.store.bubostore.repository.StoreRepository;
+import com.store.bubostore.service.BirdService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/dashboard")
+public class BirdController {
+    @Autowired
+    BirdService birdService;
+
+    @Autowired
+    StoreRepository storeRepository;
+
+    // Show product dashboard
+    @GetMapping("/product")
+    public String getAllBirds(Model model) {
+        model.addAttribute("birdLists", birdService.getAllBirds());
+        return "product-list";
+    }
+
+    // Show user dashboard
+    @GetMapping("/user")
+    public String getAllUsers(Model model) {
+//        model.addAttribute("userLists", null);
+        return "user-list";
+    }
+
+    // Search product by name
+    @GetMapping("/bird")
+    public String getByBirdName(Model model, @RequestParam("name") String name) {
+        List<Bird> birdOptional = birdService.findByBirdName(name);
+        model.addAttribute("birdLists", birdOptional);
+        return "product-list";
+    }
+
+    // Search bird by ID for edit action
+    @GetMapping("/bird/edit/{id}")
+    public String findByBirdId(Model model, @PathVariable("id") int id) {
+        Optional<Bird> birdListByID = birdService.getByBirdID(id);
+        model.addAttribute("birdLists", birdListByID.orElse(null));
+        return "edit-product";
+    }
+    // Edit bird action
+    @PostMapping("/bird/edit/{id}")
+    public String updateProduct(@ModelAttribute("bird") Bird bird) {
+        birdService.updateBirdByID(bird);
+        return "redirect:/dashboard/product";
+    }
+
+    // Get add bird page
+    @GetMapping("/add/bird")
+    public String addNewBird() {
+        return "add-product";
+    }
+    // Add new bird action
+    @PostMapping("/add/bird")
+    public String addBird(@ModelAttribute Bird bird) {
+        birdService.addBird(bird);
+        return "redirect:/home";
+    }
+
+    // Delete bird by ID
+    @PostMapping("/delete/bird/{id}")
+    public String deleteBirdById(@PathVariable("id") int id) {
+        birdService.deleteBirdByID(id);
+        return "redirect:/dashboard/product";
+    }
+}
