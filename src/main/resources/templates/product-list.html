@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Dashboard</title>
+    <link rel="icon"
+          href="https://toppng.com/uploads/preview/pink-panther-vector-free-download-11574060113zgvzfhajli.png"
+          type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"/>
@@ -21,11 +24,16 @@
     </div>
     <div class="inline pt-3 mb-2">
         <a th:href="@{/dashboard/product}" class="btn btn-info active" role="button">Show product</a>
-        <a th:href="@{/dashboard/user}" class="btn btn-info" role="button">Show User</a>
+        <a th:href="@{/dashboard/add/bird}" class="btn btn-info" role="button">Add product</a>
+        <a th:href="@{/dashboard/user-list}" class="btn btn-info" role="button">Show User</a>
+        <a th:href="@{/dashboard/add/user}" class="btn btn-info" role="button">Add User</a>
     </div>
+    <form class="inline" th:action="@{/logout}" method="POST">
+        <input type="submit" class="btn btn-info" value="Log out" />
+    </form>
     <form class="inline float-lg-right pr-0 pt-3 mb-2" method="GET" th:action="@{/dashboard/bird}">
         <div class="searchbar">
-            <input class="search_input" type="text" name="name" placeholder="Search..." />
+            <input class="search_input" type="text" name="name" placeholder="Search..."/>
             <a th:href="'#'"><i class="fas fa-search search_icon"></i></a>
         </div>
     </form>
@@ -41,8 +49,11 @@
                         <div class="media-body order-2 order-lg-1">
                             <h5 class="mt-0 font-weight-bold mb-2" th:text="${bird.name}"></h5>
                             <p class="font-italic text-muted mb-0 small" th:text="${bird.description}"></p>
-                            <div class="d-flex align-items-center mt-1">
-                                <h6 class="font-weight-bold my-2 price" th:text="'Price: $' + ${bird.price}"></h6>
+                            <div class="d-flex align-items-center mt-3">
+                                <h6 class="font-weight-bold price" th:text="'Quantity: ' + ${bird.quantity}"></h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <h6 class="font-weight-bold price" th:text="'Price: $' + ${bird.price}"></h6>
                             </div>
                             <div class="list-inline small">
                                 <h5>
@@ -54,7 +65,8 @@
                             <div class="action-product">
                                 <a th:href="@{'/dashboard/bird/edit/' + ${bird.id}}" class="btn btn-primary"
                                    style="display: inline-block">Edit</a>
-                                <form th:action="@{'/dashboard/delete/bird/' + ${bird.id}}" method="POST" class="inline">
+                                <form th:action="@{'/dashboard/delete/bird/' + ${bird.id}}" method="POST"
+                                      class="inline">
                                     <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>
                             </div>
@@ -70,12 +82,15 @@
                         <div class="media-body order-2 order-lg-1">
                             <h5 class="mt-0 font-weight-bold mb-2" th:text="${bird.name}"></h5>
                             <p class="font-italic text-muted mb-0 small" th:text="${bird.description}"></p>
-                            <div class="d-flex align-items-center mt-1">
-                                <h6 class="font-weight-bold my-2 price"
-                                    th:text="'Original price: $' + ${bird.originalPrice}"></h6>
+                            <div class="d-flex align-items-center mt-3">
+                                <h6 class="font-weight-bold price" th:text="'Quantity: ' + ${bird.quantity}"></h6>
                             </div>
-                            <div class="d-flex align-items-center mt-1">
-                                <h6 class="font-weight-bold my-2 price" th:text="'Price: $' + ${bird.price}"></h6>
+                            <div class="d-flex align-items-center">
+                                <h6 class="font-weight-bold price"
+                                    th:text="'Original price: $' + ${#numbers.formatDecimal(bird.originalPrice, 1,2)}"></h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <h6 class="font-weight-bold price" th:text="'Price: $' + ${bird.price}"></h6>
                             </div>
                             <div class="list-inline small">
                                 <h5>

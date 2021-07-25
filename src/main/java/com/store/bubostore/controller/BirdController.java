@@ -1,8 +1,7 @@
 package com.store.bubostore.controller;
 
 import com.store.bubostore.entity.Bird;
-import com.store.bubostore.repository.StoreRepository;
-import com.store.bubostore.service.BirdService;
+import com.store.bubostore.service.product.bird.BirdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,28 +16,18 @@ public class BirdController {
     @Autowired
     BirdService birdService;
 
-    @Autowired
-    StoreRepository storeRepository;
-
     // Show product dashboard
-    @GetMapping("/product")
+    @GetMapping(value = {"/product", "/", ""})
     public String getAllBirds(Model model) {
         model.addAttribute("birdLists", birdService.getAllBirds());
         return "product-list";
     }
 
-    // Show user dashboard
-    @GetMapping("/user")
-    public String getAllUsers(Model model) {
-//        model.addAttribute("userLists", null);
-        return "user-list";
-    }
-
     // Search product by name
     @GetMapping("/bird")
     public String getByBirdName(Model model, @RequestParam("name") String name) {
-        List<Bird> birdOptional = birdService.findByBirdName(name);
-        model.addAttribute("birdLists", birdOptional);
+        List<Bird> birdList = birdService.findByBirdName(name);
+        model.addAttribute("birdLists", birdList);
         return "product-list";
     }
 
@@ -65,7 +54,7 @@ public class BirdController {
     @PostMapping("/add/bird")
     public String addBird(@ModelAttribute Bird bird) {
         birdService.addBird(bird);
-        return "redirect:/home";
+        return "redirect:/dashboard/product";
     }
 
     // Delete bird by ID

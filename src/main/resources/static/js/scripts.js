@@ -1,29 +1,18 @@
 // Toggle login form
-const loginButton = document.getElementById('sign-in');
-const closeLoginFormButton = document.getElementById('close-btn');
-const loginForm = document.getElementById('popup');
+const loginButton = document.querySelectorAll('.info-item .btn');
+const active = document.querySelectorAll('.container-form .btn');
 
-function toggleClassLogin() {
-    if (loginForm.className.includes('active')) {
-        loginForm.classList.toggle('close-login-form');
-        setTimeout(() => {
-            loginForm.classList.remove('active');
-        }, 500)
-    } else {
-        loginForm.classList.toggle('active');
-        setTimeout(() => {
-            loginForm.classList.remove('close-login-form');
-        }, 500)
-    }
-}
-
-loginButton.addEventListener('click', () => {
-    toggleClassLogin();
+loginButton.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.container').classList.toggle('log-in');
+    });
 });
 
-closeLoginFormButton.addEventListener('click', () => {
-    toggleClassLogin();
-})
+active.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.container').classList.add('active');
+    });
+});
 
 // Add to cart animation
 document.addEventListener("DOMContentLoaded", function () {

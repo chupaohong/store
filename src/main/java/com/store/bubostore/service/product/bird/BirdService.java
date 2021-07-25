@@ -1,7 +1,7 @@
-package com.store.bubostore.service;
+package com.store.bubostore.service.product.bird;
 
 import com.store.bubostore.entity.Bird;
-import com.store.bubostore.repository.StoreRepository;
+import com.store.bubostore.repository.BirdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,28 +11,29 @@ import java.util.Optional;
 @Service
 public class BirdService implements BirdServiceInterface {
     @Autowired
-    StoreRepository storeRepository;
+    BirdRepository birdRepository;
 
     // Get all birds
     @Override
-    public Iterable<Bird> getAllBirds() {
-        return storeRepository.findAll();
+    public List<Bird> getAllBirds() {
+        return birdRepository.findAll();
     }
 
     // Get bird by name
     public List<Bird> findByBirdName(String name) {
-        return storeRepository.findByName(name);
+        return birdRepository.findByBirdName(name);
     }
 
     // Edit bird
     // Get bird by ID
     @Override
     public Optional<Bird> getByBirdID(int id) {
-        return storeRepository.findById(id);
+        return birdRepository.findById(id);
     }
+
     // Update bird by ID
     public void updateBirdByID(Bird bird) {
-        Bird updateBird = storeRepository.getById(bird.getId());
+        Bird updateBird = birdRepository.getById(bird.getId());
         updateBird.setName(bird.getName());
         updateBird.setQuantity(bird.getQuantity());
         updateBird.setDescription(bird.getDescription());
@@ -43,10 +44,8 @@ public class BirdService implements BirdServiceInterface {
         if (bird.getSpecialItem() == null || bird.getSpecialItem().equals(false)) {
             updateBird.setOriginalPrice((float) 0);
             updateBird.setSpecialItem(false);
-            storeRepository.save(updateBird);
-        } else {
-            storeRepository.save(updateBird);
         }
+        birdRepository.save(updateBird);
     }
 
     // Add new bird
@@ -55,15 +54,13 @@ public class BirdService implements BirdServiceInterface {
         if (bird.getOriginalPrice() == null || bird.getSpecialItem().equals(false)) {
             bird.setOriginalPrice((float) 0);
             bird.setSpecialItem(false);
-            storeRepository.save(bird);
-        } else {
-            storeRepository.save(bird);
         }
+        birdRepository.save(bird);
     }
 
     // Delete bird by ID
     @Override
     public void deleteBirdByID(int id) {
-        storeRepository.deleteById(id);
+        birdRepository.deleteById(id);
     }
 }
