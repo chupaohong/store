@@ -2,7 +2,6 @@ package com.store.bubostore.controller;
 
 import com.store.bubostore.entity.Bird;
 import com.store.bubostore.entity.User;
-import com.store.bubostore.repository.BirdRepository;
 import com.store.bubostore.service.product.bird.BirdService;
 import com.store.bubostore.service.user.UserService;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -29,6 +28,20 @@ public class StoreController {
     @GetMapping("access-denied")
     public String accessDenied() {
         return "403";
+    }
+
+    // Register action
+    @PostMapping("/register")
+    public String addUser(@ModelAttribute("userRegister") User user) {
+        user.setPhone("");
+        user.setAbout("");
+        if (user.getRole() == null) {
+            user.setRole("ROLE_USER");
+        }
+        user.setMoney(0F);
+        user.setActive(true);
+        userService.addUser(user);
+        return "redirect:/login";
     }
 
     // Load product to index after login

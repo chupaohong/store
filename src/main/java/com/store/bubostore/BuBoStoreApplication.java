@@ -32,7 +32,7 @@ public class BuBoStoreApplication extends WebSecurityConfigurerAdapter {
 
         // The page doesn't require login
         http.authorizeRequests()
-                .antMatchers("/login", "/upload/**").permitAll()
+                .antMatchers("/login", "/upload/**", "/register").permitAll()
                 .antMatchers("/dashboard/**").hasAnyRole("ADMIN").anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=error")

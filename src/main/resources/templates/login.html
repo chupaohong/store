@@ -42,16 +42,18 @@
                     </div>
                 </div>
             </form>
-            <div class="form-item sign-up">
-                <div class="table">
-                    <div class="table-cell">
-                        <input name="name" placeholder="Full Name" type="text"/>
-                        <input name="username" placeholder="Username" type="text"/>
-                        <input name="password" placeholder="Password" type="Password"/>
-                        <div class="btn" id="sign-up">Sign up</div>
+            <form th:action="@{/register}" th:object="${userRegister}" id="sign-up-form" method="POST">
+                <div class="form-item sign-up">
+                    <div class="table">
+                        <div class="table-cell">
+                            <input name="name" placeholder="Full Name" type="text"/>
+                            <input name="username" placeholder="Username" type="text"/>
+                            <input name="password" placeholder="Password" type="Password"/>
+                            <div class="btn" id="sign-up">Sign up</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -66,6 +68,14 @@
     document.getElementById('login').addEventListener('click', () => {
         setTimeout(() => {
             document.getElementById('login-form').submit();
+        }, 1000);
+        document.getElementById('error').style.display = 'none';
+    })
+
+    // Register action
+    document.getElementById('sign-up').addEventListener('click', () => {
+        setTimeout(() => {
+            document.getElementById('sign-up-form').submit();
         }, 1000);
         document.getElementById('error').style.display = 'none';
     })

@@ -63,7 +63,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public void addUser(User user) {
-        if (user.getRole().equals("user")) {
+        if (user.getRole().equals("user") || user.getRole().equals("ROLE_USER")) {
             user.setRole("ROLE_USER");
         } else {
             user.setRole("ROLE_ADMIN");

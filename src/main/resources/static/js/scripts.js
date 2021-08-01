@@ -155,7 +155,6 @@ avatar.addEventListener('change', (event) => {
 
 // Checkout from cart action
 // Checkout form element
-
 function getItems(id) {
     // Get first time of each product
     // Check item exists in localStorage
