@@ -132,7 +132,7 @@ name=Admin+Phi&username=phi_admin&password=phi_admin&role=Privilege_Escalation_T
 
 ### 5. POST "/delete/user/{id}"
 - Bug: CSRF
-- Param: 
+- Param: {id}
 - Payload:
 ```
 POST /dashboard/delete/user/17 HTTP/1.1
