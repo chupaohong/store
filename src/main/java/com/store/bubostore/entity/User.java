@@ -17,6 +17,7 @@ public class User {
     private String about;
     private String role;
     private Boolean active;
+    private Float money;
 
     // Constructor
     public User() {
@@ -65,6 +66,10 @@ public class User {
         this.active = active;
     }
 
+    public void setMoney(Float money) {
+        this.money = money;
+    }
+
     // Getter
     public int getId() {
         return id;
@@ -96,5 +101,9 @@ public class User {
 
     public Boolean getActive() {
         return active;
+    }
+
+    public Float getMoney() {
+        return money;
     }
 }

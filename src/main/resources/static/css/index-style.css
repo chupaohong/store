@@ -609,15 +609,6 @@ progress {
 
 /* End product image */
 
-/* Start sign in button */
-
-.login-button {
-      margin-right: 150px;
-}
-
-/* End sign in button */
-
-
 /* Start add to cart */
 
 .page-wrapper {
@@ -3480,6 +3471,7 @@ textarea.form-control.is-invalid {
 }
 
 .btn {
+      width: auto;
       display: inline-block;
       font-weight: 400;
       line-height: 1.5;

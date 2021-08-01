@@ -35,8 +35,6 @@
                         <div class="table-cell">
                             <h6 id="error" style="color: red; text-align: center" th:if="${error} == 'error'">Tài khoản
                                 và mật khẩu không đúng</h6>
-                            <h6 style="color: red; text-align: center" th:if="${error} == 'deny'">Tài khoản không có
-                                quyền truy cập</h6>
                             <input name="username" placeholder="Username" type="text"/>
                             <input name="password" placeholder="Password" type="Password"/>
                             <div class="btn" id="login">Log in</div>

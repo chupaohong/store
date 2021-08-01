@@ -26,7 +26,7 @@ public class BirdController {
     // Search product by name
     @GetMapping("/bird")
     public String getByBirdName(Model model, @RequestParam("name") String name) {
-        List<Bird> birdList = birdService.findByBirdName(name);
+        List<Bird> birdList = birdService.findBirdLikeName(name);
         model.addAttribute("birdLists", birdList);
         return "product-list";
     }

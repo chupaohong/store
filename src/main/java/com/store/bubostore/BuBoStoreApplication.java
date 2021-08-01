@@ -32,11 +32,11 @@ public class BuBoStoreApplication extends WebSecurityConfigurerAdapter {
 
         // The page doesn't require login
         http.authorizeRequests()
-                .antMatchers("/", "/home", "/login").permitAll()
+                .antMatchers("/login", "/upload/**").permitAll()
                 .antMatchers("/dashboard/**").hasAnyRole("ADMIN").anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=error")
-                .and().exceptionHandling().accessDeniedPage("/login?error=deny")
+                .and().exceptionHandling().accessDeniedPage("/access-denied")
                 .and().logout().permitAll();
     }
 

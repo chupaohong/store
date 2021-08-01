@@ -10,13 +10,19 @@ public interface BirdServiceInterface {
     List<Bird> getAllBirds();
 
     // Get bird by name
-    List<Bird> findByBirdName(String name);
+    List<Bird> findAllBirdByID(int ...id);
+
+    // Get bird like name
+    List<Bird> findBirdLikeName(String name);
 
     // Get bird by ID
     Optional<Bird> getByBirdID(int id);
 
     // Update bird by ID
     void updateBirdByID(Bird bird);
+
+    // Update quantity bird by ID
+    void updateQuantityBirdByID(int quantity, int id);
 
     // Add new bird
     void addBird(Bird bird);

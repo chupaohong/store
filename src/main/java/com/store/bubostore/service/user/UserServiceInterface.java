@@ -18,6 +18,12 @@ public interface UserServiceInterface {
     // Update user by ID
     void updateUserByID(User user);
 
+    // Update profile by ID
+    void updateProfile(String name, String phone, String about, String username);
+
+    // Update money of user
+    void updateMoney(Float money, String username);
+
     // Add new user
     void addUser(User user);
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Edit User</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui-datepicker/jquery-ui.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/add-product-style.css}">
+</head>
+<body>
+<div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="tm-block-title d-inline-block">Edit User</h2>
+                    </div>
+                </div>
+                <div th:each="user : ${userProfile}">
+                    <div class="row tm-edit-product-row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <form id="addBird" th:action="@{'/profile/update/' + ${user.username}}"
+                                  enctype="multipart/form-data" method="POST"
+                                  class="tm-edit-product-form">
+                                <div class="form-group mb-3">
+                                    <label for="name">Name</label>
+                                    <input id="name" name="name" type="text" class="form-control validate"
+                                           th:value="${user.name}" required/>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="phone">Phone</label>
+                                    <input id="phone" name="phone" type="text" class="form-control validate"
+                                           th:value="${user.phone}"
+                                           required/>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="about">About</label>
+                                    <textarea id="about" name="about" class="form-control validate" rows="3"
+                                              th:text="${user.about}"
+                                              required></textarea>
+                                </div>
+                                <input id="fileInput" name="file" type="file" style="display:none;"/>
+                            </form>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                            <div class="tm-product-img-dummy mx-auto">
+                                <i id="icon-upload" class="bi bi-cloud-arrow-up-fill tm-upload-icon"
+                                   onclick="document.getElementById('fileInput').click();" aria-hidden="true"
+                                   style="display: none"></i>
+                                <img id="thumbnail"
+                                     th:src="'data:image/*;base64,' + ${avatar}"
+                                     class="tm-product-img-dummy mx-auto">
+                            </div>
+                            <div class="custom-file mt-3 mb-3">
+                                <input type="button" class="btn btn-primary btn-block mx-auto"
+                                       value="UPLOAD PROFILE IMAGE"
+                                       onclick="document.getElementById('fileInput').click();"/>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                                    onclick="document.getElementById('addBird').submit();">Update Profile Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

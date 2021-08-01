@@ -19,9 +19,14 @@ public class BirdService implements BirdServiceInterface {
         return birdRepository.findAll();
     }
 
+    @Override
+    public List<Bird> findAllBirdByID(int ...id) {
+        return birdRepository.findAllBirdByID(id);
+    }
+
     // Get bird by name
-    public List<Bird> findByBirdName(String name) {
-        return birdRepository.findByBirdName(name);
+    public List<Bird> findBirdLikeName(String name) {
+        return birdRepository.findBirdLikeName(name);
     }
 
     // Edit bird
@@ -46,6 +51,11 @@ public class BirdService implements BirdServiceInterface {
             updateBird.setSpecialItem(false);
         }
         birdRepository.save(updateBird);
+    }
+
+    @Override
+    public void updateQuantityBirdByID(int quantity, int id) {
+        birdRepository.updateQuantity(quantity, id);
     }
 
     // Add new bird

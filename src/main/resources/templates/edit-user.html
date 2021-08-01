@@ -54,6 +54,11 @@
                           required></textarea>
               </div>
               <div class="form-group mb-3">
+                <label for="money">Money</label>
+                <input id="money" name="money" type="text" class="form-control validate"
+                       th:value="${user.money}" required/>
+              </div>
+              <div class="form-group mb-3">
                 <label for="role">Role</label>
                 <select class="custom-select tm-select-accounts" id="role" name="role">
                   <option value="user" th:selected="${user.role.contains('USER')}">User</option>

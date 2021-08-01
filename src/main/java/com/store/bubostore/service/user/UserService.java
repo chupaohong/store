@@ -41,12 +41,24 @@ public class UserService implements UserServiceInterface {
         updateUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         updateUser.setAbout(user.getAbout());
         updateUser.setActive(user.getActive());
-        if (user.getRole().equals("user")) {
+        updateUser.setMoney(user.getMoney());
+        if (user.getRole().equals("user") || user.getRole() == null) {
             updateUser.setRole("ROLE_USER");
         } else {
             updateUser.setRole("ROLE_ADMIN");
         }
         userRepository.save(updateUser);
+    }
+
+    // User update profile
+    @Override
+    public void updateProfile(String name, String phone, String about, String username) {
+        userRepository.updateProfile(name, phone, about, username);
+    }
+
+    @Override
+    public void updateMoney(Float money, String username) {
+        userRepository.updateMoney(money, username);
     }
 
     @Override

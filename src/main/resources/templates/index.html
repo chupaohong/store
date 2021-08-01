@@ -56,18 +56,41 @@
                 </li>
             </ul>
             <!-- Start sign in button -->
-            <div class="login-button">
-                <a th:href="@{/login}" id="sign-in" class="btn btn-outline-warning" role="button">
-                    <i class="bi bi-person"></i>
-                    Log In
+            <div style="margin-right: 40px;">
+                <a th:if="${user.getUsername()} != null" th:href="@{'/profile/' + ${user.getUsername()}}" id="profile"
+                   class="btn btn-outline-warning"
+                   role="button">
+                    <i class="bi bi-person"></i><span style="margin-left: 10px" th:text="${user.getName()}"></span>
                 </a>
             </div>
+            <div th:if="${user.getRole().contains('ADMIN')}" style="margin-right: 40px;">
+                <a th:href="@{/dashboard}" id="dashboard" class="btn btn-outline-warning" role="button">
+                    <i class="bi bi-list-stars"></i><span style="margin-left: 10px" th:text="${'Dashboard'}"></span>
+                </a>
+            </div>
+            <div style="margin-right: 40px;">
+                <a th:if="${user.getMoney()} != null" id="money" class="btn btn-outline-warning" role="button">
+                    <i class="bi bi-currency-dollar"></i>
+                    <span style="margin-left: 10px"
+                          th:text="${#numbers.formatDecimal(user.getMoney(), 1, 'COMMA', 2, 'POINT')}"></span>
+                </a>
+            </div>
+            <div style="margin-right: 150px; margin-left: 70px;">
+                <form th:action="@{/logout}" id="logout" method="POST">
+                    <input id="logout-button" type="submit" class="btn btn-outline-warning" value="Logout"/>
+                </form>
+            </div>
             <!-- End sign in button -->
-            <form class="d-flex">
+            <div class="d-flex">
                 <div id="cart" class="cart btn btn-outline-warning" data-totalitems="0">
                     <i class="bi-cart-fill me-1"></i>
                 </div>
-            </form>
+                <form id="checkout" th:action="@{/checkout}" method="POST">
+                    <input type="hidden" name="user" th:value="${user.username}">
+                    <div id="item">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
@@ -106,6 +129,8 @@
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
+                                <!-- Product id-->
+                                <input th:id="${bird.id}" type="hidden"/>
                                 <!-- Product name-->
                                 <h5 class="fw-bolder" th:text="${bird.name}"></h5>
                                 <!-- Product price-->
@@ -116,12 +141,15 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="page-wrapper">
                                 <div class="buttons">
-                                    <button class="cart-button">
-                                                            <span class="add-to-cart begin">Add to
-                                                                  cart</span>
+                                    <button th:if="${bird.quantity} > 0" th:onclick="'getItems('+ ${bird.id} +')'"
+                                            class="cart-button">
+                                        <span class="add-to-cart begin">Add to cart</span>
                                         <span class="added">Item added</span>
                                         <i class="bi bi-cart3"></i>
                                         <i class="bi bi-square-fill"></i>
+                                    </button>
+                                    <button class="cart-button" th:if="${bird.quantity} <= 0">
+                                        <span class="add-to-cart begin">Out of stock</span>
                                     </button>
                                 </div>
                             </div>
@@ -152,6 +180,8 @@
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
+                                <!-- Product id-->
+                                <input th:id="${bird.id}" type="hidden"/>
                                 <!-- Product name-->
                                 <h5 class="fw-bolder" th:text="${bird.name}"></h5>
                                 <!-- Product reviews-->
@@ -174,12 +204,15 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="page-wrapper">
                                 <div class="buttons">
-                                    <button class="cart-button">
-                                                            <span class="add-to-cart begin">Add to
-                                                                  cart</span>
+                                    <button th:if="${bird.quantity} > 0" th:onclick="'getItems('+ ${bird.id} +')'"
+                                            class="cart-button">
+                                        <span class="add-to-cart begin">Add to cart</span>
                                         <span class="added">Item added</span>
                                         <i class="bi bi-cart3"></i>
                                         <i class="bi bi-square-fill"></i>
+                                    </button>
+                                    <button class="cart-button" th:if="${bird.quantity} <= 0">
+                                        <span class="add-to-cart begin">Out of stock</span>
                                     </button>
                                 </div>
                             </div>

